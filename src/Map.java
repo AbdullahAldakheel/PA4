@@ -5,7 +5,7 @@ public interface Map<K extends Comparable<K>, T> {
 	boolean full();
 	// Removes all elements in the map.
 	void clear();
-	// Return the key and data of the current element
+	// Return the data of the current element
 	T retrieve();
 	// Update the data of current element.
 	void update(T e);
