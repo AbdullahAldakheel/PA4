@@ -27,8 +27,7 @@ public class BST <K extends Comparable<K>, T> implements Map<K,T> {
 
 	@Override
 	public void update(T e) {
-		// TODO Auto-generated method stub
-		
+		current.data=e;
 	}
 
 	@Override
@@ -105,73 +104,122 @@ BSTNode<T,K> p, q = current;
 
 	@Override
 	public boolean remove(K key) {
-		//BooleanWrapper removed = new BooleanWrapper(false);
-		K k1 = key;
-		BSTNode<T,K> p = root;
-		BSTNode<T,K> q = null; 
-		// Parent of p 
-		while (p != null) {
-			if (k1.compareTo(p.key) < 0 ) {
-				   q =p;
-		            p = p.left;	
-			} else if (k1.compareTo(p.key) > 0) {
-            
-            	q = p;
-            	p = p.right;
-			}else {
-				if ((p.left != null) && (p.right != null)) { 
-						BSTNode<T,K> min = p.right;
-						q = p;
-						while (min.left != null) {
-							q = min;
-							min = min.left;
-							}
-						p.key = min.key;
-						p.data = min.data;
-						k1 = min.key;
-						p = min;
-				         }
-						}
-     if (p.left != null) {               p = p.left;
-     } else {
-   p = p.right;
-   }
-     if (q == null) {
-    	 root = p;
-    	 } else {
-    		 if (k1 < q.key) {
-    			 q.left = p;
-    			 } else {
-    				 q.right = p;
-    				 }
-    		 }
-     current = root;
-     return true;
-     } 
+		boolean removed = false;
+		BSTNode<T,K> p;
+		p = remove_aux(key, root, removed);
+		current = root = p;
+		
+	return removed;	
+	}
+	
+	private BSTNode<T,K> remove_aux (K key,BSTNode<T,K> p , boolean flag){
+		
+		BSTNode<T,K> q , child=null;
+		if(p==null) {
+			return null;
 		}
-	return false; 
+		if(key.compareTo(p.key) < 0) {
+			p.left = remove_aux(key, p.left,flag);
+		}else if(key.compareTo(p.key) > 0) {
+			p.right = remove_aux(key, p.right,flag);
+		}else {
+			flag = true;
+			if(p.left != null && p.right != null) {
+				q = find_min(p.right);
+				p.key = q.key;
+				p.data = q.data;
+				p.right = remove_aux(q.key, p.right, flag);
+			}else {
+				if(p.right == null) {
+					child = p.left;
+				}else if (p.left == null ) {
+					child = p.right;
+				}
+				return child;
+			}
+		}
+		return p;
 		
-		
+	}
+	private BSTNode<T,K> find_min(BSTNode<T,K> p){
+		if(p==null) {
+			return null;
+		}
+		while(p.left != null) {
+			p = p.left;
+		}
+		return p;
 	}
 
 	
 	@Override
 	public List<Pair<K, T>> getAll() {
-		// TODO Auto-generated method stub
-		return null;
+		LinkedList<Pair<K, T>> tmp = new LinkedList<Pair<K, T>>();
+		current = root;
+	       if (root == null) 
+	            return tmp; 
+	       BSTNode<T, K> p = root;
+	       printInorder(p,tmp );
+		
+		
+		return tmp;
 	}
+	  private void printInorder(BSTNode<T,K> p,List<Pair<K, T>> tmp ) { 
+	        if (p == null) {
+	            return ; 
+
+	        }
+  	       // tmp.insert((Pair<K, T>)p.data);
+
+	  	        printInorder(p.left, tmp); 
+	  	        Pair tmp1 = new Pair(p.key,p.data);
+	  	        tmp.insert(tmp1);
+	  	        printInorder(p.right, tmp); 
+	    } 
+	  
 
 	@Override
 	public List<Pair<K, T>> getRange(K k1, K k2) {
-		// TODO Auto-generated method stub
-		return null;
+		LinkedList<Pair<K, T>> tmp = new LinkedList<Pair<K, T>>();
+		if(root==null) {
+			return null;
+		}
+	       BSTNode<T,K> p = root;
+		printInorderForRange(p, tmp, k1, k2);
+		return tmp;
 	}
+	  private void printInorderForRange(BSTNode<T,K> p,List<Pair<K, T>> tmp , K k1,K k2) { 
+	        if (p == null) {
+	            return; 
+
+	        }
+	        printInorderForRange(p.left, tmp, k1, k2);
+	  	        if(p.key.compareTo(k1) >= 0 && p.key.compareTo(k2) <= 0) {
+		  	        Pair tmp1 = new Pair(p.key,p.data);
+		  	        tmp.insert(tmp1);
+	  	        }
+	  	      printInorderForRange(p.right, tmp, k1, k2); 
+	    }
 
 	@Override
 	public int nbKeyComp(K k1, K k2) {
-		// TODO Auto-generated method stub
-		return 0;
+	       BSTNode<T,K> p = root;
+	       int count=0;
+	       nbKeyCompRec(p, k1, k2, count);
+		return count;
 	}
+	  private void nbKeyCompRec(BSTNode<T,K> p, K k1,K k2, int count) { 
+	        if (p == null) {
+	            return; 
+
+	        }
+	        nbKeyCompRec(p.left, k1, k2, count);
+	  	        if(p.key.compareTo(k1) >= 0 && p.key.compareTo(k2) <= 0) {
+	  	        	System.out.println("d");
+	  	        	count++;
+	  	        }
+	  	      nbKeyCompRec(p.right, k1, k2, count); 
+	    }
 	
 
 }

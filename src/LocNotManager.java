@@ -1,7 +1,45 @@
+import java.io.BufferedReader;
+import java.io.FileReader;
+
 public class LocNotManager {
 	// Load notifications from file. Assume format is correct. The notifications are
 	// indexed by latitude then by longitude.
 	public static Map<Double, Map<Double, LocNot>> load(String fileName) {
+		
+		try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
+			
+		    String line=null;
+		    while ((line = br.readLine()) != null) {
+		    	String[] words = line.split("\\s+"); // splits by whitespace
+		    	String tmp= "";
+		    	for(int i=0 ; i<words.length ; i++) {
+		    		if(i==4) {
+		    			
+		    			for(int j=4 ; i<words.length ; i++) {
+		    				 tmp += words[i];
+		    				 tmp += " ";
+		    			}
+		    			break;
+		    		}
+		    	    System.out.print(words[i]);
+		    	    System.out.print(" ");
+		    	  
+
+		    	}
+		    	  System.out.println(tmp);
+		    	for (String word : words) {
+		    	   // System.out.println(word);
+		    	}
+		    	
+		    	
+		    }
+    
+		}catch(Exception e){
+			
+		}
+		
+		
+		
 		return null;
 	}
 
