@@ -159,6 +159,8 @@ BSTNode<T,K> p, q = current;
 	       if (root == null) 
 	            return tmp; 
 	       BSTNode<T, K> p = root;
+ 	        Pair tmp1 = new Pair(p.key,p.data);
+ 	        tmp.insert(tmp1);
 	       printInorder(p,tmp );
 		
 		
@@ -169,11 +171,11 @@ BSTNode<T,K> p, q = current;
 	            return ; 
 
 	        }
-  	       // tmp.insert((Pair<K, T>)p.data);
 
 	  	        printInorder(p.left, tmp); 
 	  	        Pair tmp1 = new Pair(p.key,p.data);
 	  	        tmp.insert(tmp1);
+	  	        System.out.println("123");
 	  	        printInorder(p.right, tmp); 
 	    } 
 	  
@@ -201,24 +203,24 @@ BSTNode<T,K> p, q = current;
 	  	      printInorderForRange(p.right, tmp, k1, k2); 
 	    }
 
-	@Override
-	public int nbKeyComp(K k1, K k2) {
+	  private int count=0;
+	  
+	  public int nbKeyComp(K k1, K k2) {
 	       BSTNode<T,K> p = root;
-	       int count=0;
-	       nbKeyCompRec(p, k1, k2, count);
+	        count=0;
+	       nbKeyCompRec(p, k1, k2);
 		return count;
 	}
-	  private void nbKeyCompRec(BSTNode<T,K> p, K k1,K k2, int count) { 
+	  private void nbKeyCompRec(BSTNode<T,K> p, K k1,K k2) { 
 	        if (p == null) {
 	            return; 
 
 	        }
-	        nbKeyCompRec(p.left, k1, k2, count);
+	        nbKeyCompRec(p.left, k1, k2);
 	  	        if(p.key.compareTo(k1) >= 0 && p.key.compareTo(k2) <= 0) {
-	  	        	System.out.println("d");
-	  	        	count++;
+	  	        	count+=1;
 	  	        }
-	  	      nbKeyCompRec(p.right, k1, k2, count); 
+	  	      nbKeyCompRec(p.right, k1, k2); 
 	    }
 	
 

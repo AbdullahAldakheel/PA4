@@ -1,36 +1,48 @@
+import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileOutputStream;
 import java.io.FileReader;
+import java.io.FileWriter;
 
 public class LocNotManager {
 	// Load notifications from file. Assume format is correct. The notifications are
 	// indexed by latitude then by longitude.
 	public static Map<Double, Map<Double, LocNot>> load(String fileName) {
-		
+		double check = 0;
+		Map<Double,LocNot> Mini=new BST<Double,LocNot>();
+		Map<Double, Map<Double, LocNot>> Max=new BST<Double, Map<Double, LocNot>>();
 		try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
-			
 		    String line=null;
 		    while ((line = br.readLine()) != null) {
 		    	String[] words = line.split("\\s+"); // splits by whitespace
 		    	String tmp= "";
 		    	for(int i=0 ; i<words.length ; i++) {
-		    		if(i==4) {
-		    			
+		    		if(i==4) {	
 		    			for(int j=4 ; i<words.length ; i++) {
 		    				 tmp += words[i];
 		    				 tmp += " ";
 		    			}
 		    			break;
 		    		}
-		    	    System.out.print(words[i]);
-		    	    System.out.print(" ");
-		    	  
-
-		    	}
-		    	  System.out.println(tmp);
-		    	for (String word : words) {
-		    	   // System.out.println(word);
 		    	}
 		    	
+		    
+		    	  System.out.println(tmp);
+					LocNot add = new LocNot(tmp, Double.parseDouble(words[0]), Double.parseDouble(words[1]), Integer.parseInt(words[2]), Integer.parseInt(words[3]));
+				
+					if( Double.parseDouble(words[0]) ==  check) {
+						Mini.insert(Double.parseDouble(words[1]), add);
+					}else {
+						if(!Mini.empty()) {
+							Max.insert(Double.parseDouble(words[0]), Mini);
+						}
+						
+						
+						Mini=new BST<Double,LocNot>();
+						Mini.insert(Double.parseDouble(words[1]), add);
+					}
+					check = Double.parseDouble(words[0]);
 		    	
 		    }
     
@@ -39,12 +51,48 @@ public class LocNotManager {
 		}
 		
 		
-		
-		return null;
+		return Max;
 	}
 
 	// Save notifications to file.
 	public static void save(String fileName, Map<Double, Map<Double, LocNot>> nots) {
+		
+		try (BufferedWriter br = new BufferedWriter(new FileWriter(fileName))) {
+		    String line=null;
+		//    while (true) {
+		    	
+		    	List<Pair<Double, Map<Double, LocNot>>> Max = nots.getAll(); 
+		    	Max.findFirst();
+	    		double lat =Max.retrieve().first;
+	    		System.out.println(lat);
+	    		Map<Double,LocNot> Mini= Max.retrieve().second;
+	    		//List<Pair<Double, LocNot>> Mini2 =  Mini.getAll();
+
+
+	
+		    		
+		    		
+//		    		Mini2.findFirst();
+//		    		while(!Mini2.last()) {
+//			    		double lng = Mini2.retrieve().first;
+//			    		br.write(String.valueOf(lat));  br.write(" ");
+//			    		br.write(String.valueOf(lng));  br.write(" ");
+//			    		LocNot add = Mini2.retrieve().second;
+//			    		br.write(add.getMaxNbRepeats());  br.write(" "); br.write(add.getNbRepeats());  br.write(" ");br.write(add.getText());
+//			    		br.newLine();
+//			    		Mini2.findNext();
+//		    		}
+
+		    		
+		    	
+		    	
+		 //   }
+    
+		}catch(Exception e){
+			
+		}
+		
+		
 	}
 
 	// Return all notifications sorted first by latitude then by longitude.
