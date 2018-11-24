@@ -21,15 +21,18 @@ public class Main {
 		LocNotManager.addNot(nots, new LocNot("Buy notebook", 24.75213, 46.62443, 1, 0));
 		LocNotManager.addNot(nots, new LocNot("Buy milk", 24.74203, 46.65809, 0, 0));
 		LocNotManager.addNot(nots, new LocNot("Make doctor appointment", 24.71144, 46.62124, 1, 0));
+		LocNotManager.addNot(nots, new LocNot("awfdwesfesFE", 24.71144, 46.62124, 1, 0));
 
-		// Map<Double, Map<Double, LocNot>> nots = LocNotManager.load("input.txt"); //
+		Map<Double, Map<Double, LocNot>> nots0 = LocNotManager.load("input.txt"); 
 		// Reading from file
 
-		LocNotManager.save("output.txt", nots); // Write to file
+		LocNotManager.save("oudwwdwdtput.txt", nots); // Write to file
+		LocNotManager.print(LocNotManager.getAllNots(nots0)); // Print all notifications
+
 
 		// Some queries
 		LocNotManager.print(LocNotManager.getAllNots(nots)); // Print all notifications
-
+		System.out.println("==============");
 		LocNotManager.print(LocNotManager.getActiveNotsAt(nots, 24.72328, 46.63640, 100000)); // This should print all tasks
 
 		LocNotManager.print(LocNotManager.getActiveNotsAt(nots, 24.72328, 46.63640, 1000)); // This should print the task: Submit PA female and Submit HW female

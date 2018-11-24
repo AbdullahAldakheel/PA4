@@ -157,10 +157,10 @@ BSTNode<T,K> p, q = current;
 		LinkedList<Pair<K, T>> tmp = new LinkedList<Pair<K, T>>();
 		current = root;
 	       if (root == null) 
-	            return tmp; 
+	            return null; 
 	       BSTNode<T, K> p = root;
  	        Pair tmp1 = new Pair(p.key,p.data);
- 	        tmp.insert(tmp1);
+ 	       // tmp.insert(tmp1);
 	       printInorder(p,tmp );
 		
 		
@@ -175,8 +175,8 @@ BSTNode<T,K> p, q = current;
 	  	        printInorder(p.left, tmp); 
 	  	        Pair tmp1 = new Pair(p.key,p.data);
 	  	        tmp.insert(tmp1);
-	  	        System.out.println("123");
 	  	        printInorder(p.right, tmp); 
+
 	    } 
 	  
 
@@ -188,6 +188,10 @@ BSTNode<T,K> p, q = current;
 		}
 	       BSTNode<T,K> p = root;
 		printInorderForRange(p, tmp, k1, k2);
+	        if(p.key.compareTo(k1) >= 0 && p.key.compareTo(k2) <= 0) {
+	  	        Pair tmp1 = new Pair(p.key,p.data);
+	  	        tmp.insert(tmp1);
+  	        }
 		return tmp;
 	}
 	  private void printInorderForRange(BSTNode<T,K> p,List<Pair<K, T>> tmp , K k1,K k2) { 

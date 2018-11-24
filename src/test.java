@@ -83,7 +83,29 @@ public class test {
 //		System.out.println(C.retrieve().second.getLat()+""+C.retrieve().second.getLng()+""+C.retrieve().second.getMaxNbRepeats()+""+C.retrieve().second.getNbRepeats()+" "+C.retrieve().second.getText());
 //
 		Map<Double, Map<Double, LocNot>> load = LocNotManager.load("input.txt");
-		LocNotManager.save("Ah.txt", load);
+			
+		
+		LocNotManager.save("tee.txt", load);
+		
+		
+//			List<Pair<Double, Map<Double, LocNot>>> tmp =  load.getAll();
+//			tmp.findFirst();
+//			while(!tmp.last()) {
+//				List<Pair<Double, LocNot>> tmp2 =  tmp.retrieve().second.getAll();
+//				tmp2.findFirst();
+//				while(!tmp2.last()) {
+//					System.out.println(tmp.retrieve().second.retrieve().toString());
+//					tmp2.findNext();
+//				}
+//				//System.out.println(tmp.retrieve().second.retrieve().toString());
+//
+//				tmp.findNext();
+//			}
+//			System.out.println(tmp.retrieve().second.retrieve().toString());
+//
+
+
+			
 	}
 
 }
