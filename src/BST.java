@@ -54,28 +54,24 @@ public class BST <K extends Comparable<K>, T> implements Map<K,T> {
 
 	}
 
-	@Override
+
+
+	int nbKey = 0;
+	
 	public int nbKeyComp(K key) {
-		BSTNode<T,K> p = root,q = root;
-		int tmp = 0;
-		if(empty())
-			return 0;
-		
-		while(p != null) {
-			q = p;
-			if(p.key.compareTo(key) == 0 ) {
-				current = p;
-			}
-			else if(key.compareTo(p.key) < 0 )
-				p = p.left;
-			else
-				p = p.right;
-	tmp++;
-		}
-		
-		current = q;
-		return tmp;
+		nbKey=0;
+			BSTNode<T,K> p = root;
+	       nbKeyCompRec(p, key);
+		return nbKey;
 	}
+	  private void nbKeyCompRec(BSTNode<T,K> p, K key) { 
+	        if (p == null) {
+	            return; 
+	        }
+	        nbKeyCompRec(p.left, key);
+	  	   	nbKey+=1;
+	  	    nbKeyCompRec(p.right, key); 
+	    }
 
 	@Override
 	public boolean insert(K key, T data) {
@@ -188,10 +184,7 @@ BSTNode<T,K> p, q = current;
 		}
 	       BSTNode<T,K> p = root;
 		printInorderForRange(p, tmp, k1, k2);
-	        if(p.key.compareTo(k1) >= 0 && p.key.compareTo(k2) <= 0) {
-	  	        Pair tmp1 = new Pair(p.key,p.data);
-	  	        tmp.insert(tmp1);
-  	        }
+
 		return tmp;
 	}
 	  private void printInorderForRange(BSTNode<T,K> p,List<Pair<K, T>> tmp , K k1,K k2) { 

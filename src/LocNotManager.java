@@ -87,9 +87,8 @@ public class LocNotManager {
 
 				br.newLine();
 			} else {
-				System.out.println("Empty");
+				System.out.println("Empty to save");
 			}
-			System.out.println("++++++++++++++++++");
 		}catch(Exception e){
 			
 		}
@@ -177,30 +176,42 @@ public class LocNotManager {
 
 	// Return the list of notifications within a square of side dst (in meters) centered at the position (lat, lng) (it does not matter if the notification is active or not). Do not call Map.getAll().
 	public static List<LocNot> getNotsAt(Map<Double, Map<Double, LocNot>> nots, double lat, double lng, double dst) {
-		LinkedList<LocNot> aT = new LinkedList<LocNot>();
-		double d = GPS.dist(dst, dst, dst, dst);
-		if(nots.find(lat)) {
-			List<Pair<Double, Map<Double, LocNot>>> tmp = nots.getRange(lat+d, lat-d);
-			if(!tmp.empty()) {
-				if(tmp.retrieve().second.find(lng)) {
-					List<Pair<Double, LocNot>> tmp2 = tmp.retrieve().second.getRange(lng+dst, lng-dst);
-						if(!tmp2.empty()) {
-							while(!tmp2.last()) {
-								aT.insert(tmp2.retrieve().second);
-								tmp2.findNext();
-							}
-							aT.insert(tmp2.retrieve().second);
-						}
-					return aT;
-
+		List<LocNot> notfg = new LinkedList<LocNot>();
+		double newDst = GPS.angle(dst);
+		Map<Double, Map<Double, LocNot>> Max=nots;
+		List<Pair<Double, Map<Double, LocNot>>> in = Max.getRange(lat-newDst, lat+newDst);
+		
+		if(!in.empty()) {
+			in.findFirst();
+			while(!in.last()) {
+				List<Pair<Double, LocNot>> inIn = in.retrieve().second.getRange(lng-newDst, lng+newDst);
+				
+				if(!inIn.empty()) {
+					inIn.findFirst();
+					while(!inIn.last()) {
+						notfg.insert(inIn.retrieve().second);
+						inIn.findNext();
+					}
+					
+					notfg.insert(inIn.retrieve().second);
 				}
+				
+				in.findNext();
+			}
+			List<Pair<Double, LocNot>> inIn = in.retrieve().second.getRange(lng-newDst, lng+newDst);
+			
+			if(!inIn.empty()) {
+				inIn.findFirst();
+				while(!inIn.last()) {
+					notfg.insert(inIn.retrieve().second);
+					inIn.findNext();
+				}
+				notfg.insert(inIn.retrieve().second);
 			}
 			
-
-			
-			
 		}
-		return aT;
+		
+		return notfg;
 	}
 
 	// Return the list of active notifications within a square of side dst (in meters) centered at the position (lat, lng). Do not call Map.getAll().

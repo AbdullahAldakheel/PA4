@@ -33,17 +33,17 @@ public class test {
 
 		p.insert(14, 14);
 		//p.find(0);
-		List<Pair<Integer, Integer>>  T = p.getRange(6, 14);
+		List<Pair<Integer, Integer>>  T = p.getRange(-1400, 10000);
 		T.findFirst();
 		while(!T.last()) { 
 			System.out.println(T.retrieve().second);
 
-			T.findNext();
+		 	T.findNext();
 		}
 		//T.findNext();
 		//System.out.println(T.retrieve().second);
 
-		System.out.println(p.nbKeyComp(6, 14));
+		System.out.println(p.nbKeyComp(10));
 		//T.findNext();
 		
 		//p.print();
