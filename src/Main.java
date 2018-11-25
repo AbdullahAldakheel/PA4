@@ -21,13 +21,15 @@ public class Main {
 		LocNotManager.addNot(nots, new LocNot("Buy notebook", 24.75213, 46.62443, 1, 0));
 		LocNotManager.addNot(nots, new LocNot("Buy milk", 24.74203, 46.65809, 0, 0));
 		LocNotManager.addNot(nots, new LocNot("Make doctor appointment", 24.71144, 46.62124, 1, 0));
-		LocNotManager.addNot(nots, new LocNot("awfdwesfesFE", 24.71144, 46.62124, 1, 0));
 
-		Map<Double, Map<Double, LocNot>> nots0 = LocNotManager.load("input.txt"); 
+
+
+		//Map<Double, Map<Double, LocNot>> nots0 = LocNotManager.load("input.txt"); 
+		//LocNotManager.print(LocNotManager.getAllNots(nots0));
 		// Reading from file
 
-		LocNotManager.save("oudwwdwdtput.txt", nots); // Write to file
-		LocNotManager.print(LocNotManager.getAllNots(nots0)); // Print all notifications
+		//LocNotManager.save("123.txt", nots); // Write to file
+		//LocNotManager.print(LocNotManager.getAllNots(nots0)); // Print all notifications
 
 
 		// Some queries

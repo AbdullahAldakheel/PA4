@@ -9,9 +9,12 @@ public class LocNotManager {
 	// Load notifications from file. Assume format is correct. The notifications are
 	// indexed by latitude then by longitude.
 	public static Map<Double, Map<Double, LocNot>> load(String fileName) {
-		double check = 0;
-		BST<Double,LocNot> Mini=new BST<Double,LocNot>();
-		BST<Double, Map<Double, LocNot>> Max=new BST<Double, Map<Double, LocNot>>();
+		boolean check = false;
+		//BST<Double,LocNot> Mini=new BST<Double,LocNot>();
+		Map<Double, Map<Double, LocNot>> Max=new BST<Double, Map<Double, LocNot>>();
+		Map<Double,LocNot> Mini=new BST<Double,LocNot>();
+    	double zg=-345435435;
+    	double zg2=zg;
 		try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
 		    String line=null;
 		    while ((line = br.readLine()) != null) {
@@ -26,29 +29,25 @@ public class LocNotManager {
 		    			break;
 		    		}
 		    	}
-		    	
 		    
-					LocNot add = new LocNot(tmp, Double.parseDouble(words[0]), Double.parseDouble(words[1]), Integer.parseInt(words[2]), Integer.parseInt(words[3]));
-				
-					if( Double.parseDouble(words[0]) ==  check) {
-						Mini.insert(Double.parseDouble(words[1]), add);
-					}else {
-						if(!Mini.empty()) {
-							Max.insert(Double.parseDouble(words[0]), Mini);
-						}
-						
-						
-						Mini=new BST<Double,LocNot>();
-						Mini.insert(Double.parseDouble(words[1]), add);
-					}
-					check = Double.parseDouble(words[0]);
-		    	
+					
+		    	LocNot add = new LocNot(tmp, Double.parseDouble(words[0]), Double.parseDouble(words[1]), Integer.parseInt(words[2]), Integer.parseInt(words[3]));
+		    	 Mini=new BST<Double,LocNot>();
+					
+    			
+    				
+					Mini.insert(Double.parseDouble(words[1]), add);
+			    	
+			    boolean t =Max.insert(Double.parseDouble(words[0]), Mini);
+					if(!t) {
+						Max.find(Double.parseDouble(words[0]));
+						Max.retrieve().insert((Double.parseDouble(words[1])), add);	
+					}					
 		    }
     
 		}catch(Exception e){
 			
 		}
-		
 		
 		return Max;
 	}
@@ -100,21 +99,40 @@ public class LocNotManager {
 
 	// Return all notifications sorted first by latitude then by longitude.
 	public static List<LocNot> getAllNots(Map<Double, Map<Double, LocNot>> nots) {
-		LinkedList<LocNot> notf = new LinkedList<LocNot>();
-		List<Pair<Double, Map<Double, LocNot>>> tmp2 = nots.getAll();
+		List<LocNot> notf = new LinkedList<LocNot>();
 
-		if(!tmp2.empty()) {
-			tmp2.findFirst();
-			while(!tmp2.last()) {
-				if(tmp2.retrieve().second.retrieve().perform()) {
-					notf.insert(tmp2.retrieve().second.retrieve());
+		Map<Double, Map<Double, LocNot>> Max=nots;
+		List<Pair<Double, Map<Double, LocNot>>> in = Max.getAll();
+		
+		if(!in.empty()) {
+			in.findFirst();
+			while(!in.last()) {
+				List<Pair<Double, LocNot>> inIn = in.retrieve().second.getAll();
+				
+				if(!inIn.empty()) {
+					inIn.findFirst();
+					while(!inIn.last()) {
+						notf.insert(inIn.retrieve().second);
+						inIn.findNext();
+					}
+					notf.insert(inIn.retrieve().second);
 				}
-				tmp2.findNext();
+				
+				in.findNext();
 			}
-			if(tmp2.retrieve().second.retrieve().perform()) {
-				notf.insert(tmp2.retrieve().second.retrieve());
+			List<Pair<Double, LocNot>> inIn = in.retrieve().second.getAll();
+			
+			if(!inIn.empty()) {
+				inIn.findFirst();
+				while(!inIn.last()) {
+					notf.insert(inIn.retrieve().second);
+					inIn.findNext();
+				}
+				notf.insert(inIn.retrieve().second);
 			}
+			
 		}
+		
 		return notf;
 	}
 
@@ -126,17 +144,21 @@ public class LocNotManager {
 		
 		double y=not.getLng();
 		double x = not.getLat();
-		if(Mini.insert(y, not)) {
-			Mini.insert(y, not);
-			if(nots.insert(x, Mini)) {
+
+		Mini.insert(y, not);
+			boolean G1 = nots.insert(x, Mini);
+			if(G1) {
+				return true;
+			}else {
+				nots.find(x);
+				nots.retrieve().insert(y, not);
 				return true;
 			}
-			return false;
+ 
 
-		}else{
-			return false;
-
-		}
+		
+		
+		
 
 	}
 

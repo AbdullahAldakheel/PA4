@@ -102,9 +102,9 @@ BSTNode<T,K> p, q = current;
 		}
 	}
 
-	@Override
+	private boolean removed = false;
 	public boolean remove(K key) {
-		boolean removed = false;
+		removed = false;
 		BSTNode<T,K> p;
 		p = remove_aux(key, root, removed);
 		current = root = p;
@@ -123,7 +123,7 @@ BSTNode<T,K> p, q = current;
 		}else if(key.compareTo(p.key) > 0) {
 			p.right = remove_aux(key, p.right,flag);
 		}else {
-			flag = true;
+			removed = true;
 			if(p.left != null && p.right != null) {
 				q = find_min(p.right);
 				p.key = q.key;
@@ -210,8 +210,9 @@ BSTNode<T,K> p, q = current;
 	  private int count=0;
 	  
 	  public int nbKeyComp(K k1, K k2) {
-	       BSTNode<T,K> p = root;
-	        count=0;
+	       //BSTNode<T,K> p = root;
+		  count=0;
+			BSTNode<T,K> p = root;
 	       nbKeyCompRec(p, k1, k2);
 		return count;
 	}
@@ -226,6 +227,18 @@ BSTNode<T,K> p, q = current;
 	  	        }
 	  	      nbKeyCompRec(p.right, k1, k2); 
 	    }
-	
+	  public void print() { 
+		  print1(root);
+	    }
+	  public void print1(BSTNode<T, K> t) { 
+	        if (t == null) {
+	            return ; 
+
+	        }
+
+	        print1(t.left); 
+System.out.println(t.data);
+	print1(t.right); 
+	    }
 
 }

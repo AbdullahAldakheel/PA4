@@ -2,39 +2,51 @@
 public class test {
 
 	public static void main(String[] args) {
-//		Map<Integer,Integer> p=new BST<Integer,Integer>();
-//		p.insert(8, 8);
-//
-//		p.insert(5, 5);
-//
-//		p.insert(0, 0);
-//
-//		p.insert(1, 1);
-//
-//		p.insert(2, 2);
-//
-//		p.insert(3, 3);
-//
-//		p.insert(4, 4);
-//
-//		p.insert(6, 6);
-//
-//		p.insert(7, 7);
-//
-//		p.insert(12, 12);
-//
-//		p.insert(9, 9);
-//
-//		p.insert(10, 10);
-//
-//		p.insert(11, 11);
-//
-//		p.insert(13, 13);
-//
-//		p.insert(14, 14);
-//		
-//		System.out.println(p.nbKeyComp(0, 14));
-//		
+		BST<Integer,Integer> p=new BST<Integer,Integer>();
+		p.insert(8, 8);
+
+		p.insert(5, 5);
+
+		p.insert(0, 0);
+
+		p.insert(1, 1);
+
+		p.insert(2, 2);
+
+		p.insert(3, 3);
+
+		p.insert(4, 4);
+
+		p.insert(6, 6);
+
+		p.insert(7, 7);
+
+		p.insert(12, 12);
+
+		p.insert(9, 9);
+
+		p.insert(10, 10);
+
+		p.insert(11, 11);
+
+		p.insert(13, 13);
+
+		p.insert(14, 14);
+		//p.find(0);
+		List<Pair<Integer, Integer>>  T = p.getRange(6, 14);
+		T.findFirst();
+		while(!T.last()) { 
+			System.out.println(T.retrieve().second);
+
+			T.findNext();
+		}
+		//T.findNext();
+		//System.out.println(T.retrieve().second);
+
+		System.out.println(p.nbKeyComp(6, 14));
+		//T.findNext();
+		
+		//p.print();
 //		
 //		LocNotManager.load("input.txt");
 		
@@ -85,7 +97,7 @@ public class test {
 		Map<Double, Map<Double, LocNot>> load = LocNotManager.load("input.txt");
 			
 		
-		LocNotManager.save("tee.txt", load);
+		//LocNotManager.save("tee.txt", load);
 		
 		
 //			List<Pair<Double, Map<Double, LocNot>>> tmp =  load.getAll();
