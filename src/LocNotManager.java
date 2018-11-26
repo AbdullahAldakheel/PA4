@@ -99,7 +99,9 @@ public class LocNotManager {
 	// Return all notifications sorted first by latitude then by longitude.
 	public static List<LocNot> getAllNots(Map<Double, Map<Double, LocNot>> nots) {
 		List<LocNot> notf = new LinkedList<LocNot>();
-
+if(nots.empty()) {
+	return null;
+}
 		Map<Double, Map<Double, LocNot>> Max=nots;
 		List<Pair<Double, Map<Double, LocNot>>> in = Max.getAll();
 		
@@ -163,8 +165,10 @@ public class LocNotManager {
 
 	// Delete the notification at (lat, lng). Returns true if delete took place, false otherwise.
 	public static boolean delNot(Map<Double, Map<Double, LocNot>> nots, double lat, double lng) {
-				if(nots.find(lat)) {
-			if(nots.retrieve().find(lng)) {
+		boolean first = nots.find(lat);
+				if(first) { 
+					boolean second = nots.retrieve().find(lng);
+			if(second) {
 				nots.retrieve().clear();
 				return true;
 		}
@@ -218,18 +222,24 @@ public class LocNotManager {
 	public static List<LocNot> getActiveNotsAt(Map<Double, Map<Double, LocNot>> nots, double lat, double lng, double dst) {
 		List<LocNot> hashm = getNotsAt(nots, lat, lng, dst);
 		LinkedList<LocNot> hashmAct = new LinkedList<LocNot>();
-		if(!hashm.empty()) {
-			hashm.findFirst();
-			while(!hashm.last()) {
-				if(hashm.retrieve().isActive()) {
+			if(!hashm.empty()) {
+				hashm.findFirst();
+				while(!hashm.last()) {
+					boolean tmp = hashm.retrieve().isActive();
+					if(tmp) {
+						hashmAct.insert(hashm.retrieve());
+					}
+					hashm.findNext();
+				}
+				boolean tmp = hashm.retrieve().isActive();
+				if(tmp) {
 					hashmAct.insert(hashm.retrieve());
 				}
-				hashm.findNext();
 			}
-			if(hashm.retrieve().isActive()) {
-				hashmAct.insert(hashm.retrieve());
-			}
-		}
+
+		
+		
+		
 		return hashmAct;
 	}
 
@@ -255,22 +265,51 @@ public class LocNotManager {
 
 	// Return a map that maps every word to the list of notifications in which it appears. The list must have no duplicates.
 	public static Map<String, List<LocNot>> index(Map<Double, Map<Double, LocNot>> nots) {
-		return null;
+		List<LocNot> newL = getAllNots(nots);
+	
+		Map<String, List<LocNot>> Max=new BST<String, List<LocNot>>();
+		if(!newL.empty()) {
+			newL.findFirst();
+			while(!newL.last()) {
+				String tmp = newL.retrieve().getText();
+				LinkedList<LocNot> tmp1 = new LinkedList<LocNot>();
+				tmp1.insert(newL.retrieve());
+				Max.insert(tmp, tmp1);
+				newL.findNext();
+			}
+			String tmp = newL.retrieve().getText();
+			LinkedList<LocNot> tmp1 = new LinkedList<LocNot>();
+			tmp1.insert(newL.retrieve());
+			Max.insert(tmp, tmp1);
+			newL.findNext();
+			
+		}
+	
+		return Max;
+	
 	}
 
 	// Delete all notifications containing the word w.
 	public static void delNots(Map<Double, Map<Double, LocNot>> nots, String w) {
-		List<Pair<Double, Map<Double, LocNot>>> tmp2 = nots.getAll();
-		tmp2.findFirst();
-		while(!tmp2.last()) {
-			if(tmp2.retrieve().second.retrieve().getText().contains("w")) {
-				tmp2.retrieve().second.clear();
+
+if(nots.empty()) {
+	return;
+}
+		List<LocNot> test = getAllNots(nots);
+		if(!test.empty()) {
+			test.findFirst();
+			while(!test.last()) {
+				if(test.retrieve().getText().contains(w)) {
+					System.out.println(delNot(nots, test.retrieve().getLat(), test.retrieve().getLng()));
+					
+			
+				}
+					test.findNext();
 			}
-			tmp2.findNext();
-		}
-		if(tmp2.retrieve().second.retrieve().getText().contains("w")) {
-			tmp2.retrieve().second.clear();
-		}
+			if(test.retrieve().getText().contains(w)) {
+				System.out.println(delNot(nots, test.retrieve().getLat(), test.retrieve().getLng()));
+			}
+		} 
 		
 	}
 

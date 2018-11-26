@@ -17,7 +17,7 @@ public class BST <K extends Comparable<K>, T> implements Map<K,T> {
 
 	@Override
 	public void clear() {
-		root = current = null;
+		 current = null;
 	}
 
 	@Override
@@ -69,7 +69,10 @@ public class BST <K extends Comparable<K>, T> implements Map<K,T> {
 	            return; 
 	        }
 	        nbKeyCompRec(p.left, key);
-	  	   	nbKey+=1;
+	        if(p.key.compareTo(key) > 0 ) {
+	        		  	   	nbKey+=1;
+	        }
+
 	  	    nbKeyCompRec(p.right, key); 
 	    }
 
@@ -201,12 +204,18 @@ BSTNode<T,K> p, q = current;
 	    }
 
 	  private int count=0;
-	  
+	  private int countRest=0;
 	  public int nbKeyComp(K k1, K k2) {
-	       //BSTNode<T,K> p = root;
+	       //BSTNode<T,K> p = root; 
 		  count=0;
+		   countRest=0;
 			BSTNode<T,K> p = root;
 	       nbKeyCompRec(p, k1, k2);
+	       
+	       if(k1.compareTo(k2)>0) {
+	    	   return nbKeyComp(k1);
+	    	  
+	       }
 		return count;
 	}
 	  private void nbKeyCompRec(BSTNode<T,K> p, K k1,K k2) { 
