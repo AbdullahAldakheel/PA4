@@ -57,22 +57,6 @@ public class LocNotManager {
 		
 		try (BufferedWriter br = new BufferedWriter(new FileWriter(fileName))) {
 
-//			List<Pair<Double, Map<Double, LocNot>>> tmp =  nots.getAll();
-//			tmp.findFirst();
-//			while(!tmp.last()) {
-//				List<Pair<Double, LocNot>> tmp2 =  tmp.retrieve().second.getAll();
-//				tmp2.findFirst();
-//				while(!tmp2.last()) {
-//					br.write(tmp.retrieve().second.retrieve().toString());
-//					br.newLine();
-//					tmp2.findNext();
-//				}
-//
-//				tmp.findNext();
-//			}
-//			br.write(tmp.retrieve().second.retrieve().toString());
-//			br.newLine();
-			//Map<Double, Map<Double, LocNot>>
 
 			List<LocNot> l =getAllNots(nots);
 			if (!l.empty()) {
@@ -102,14 +86,14 @@ public class LocNotManager {
 if(nots.empty()) {
 	return null;
 }
-		Map<Double, Map<Double, LocNot>> Max=nots;
-		List<Pair<Double, Map<Double, LocNot>>> in = Max.getAll();
+		//Map<Double, Map<Double, LocNot>> Max=nots;
+		List<Pair<Double, Map<Double, LocNot>>> in = nots.getAll();
 		
 		if(!in.empty()) {
 			in.findFirst();
 			while(!in.last()) {
 				List<Pair<Double, LocNot>> inIn = in.retrieve().second.getAll();
-				
+				 
 				if(!inIn.empty()) {
 					inIn.findFirst();
 					while(!inIn.last()) {
@@ -169,10 +153,8 @@ if(nots.empty()) {
 				if(first) { 
 					boolean second = nots.retrieve().find(lng);
 			if(second) {
-				nots.retrieve().clear();
-				System.out.println("done");
-				nots.retrieve().remove(lng);
-				return true;
+				return nots.remove(lat);
+				
 		}
 	}
 		return false;
@@ -185,7 +167,12 @@ if(nots.empty()) {
 		List<LocNot> notfg = new LinkedList<LocNot>();
 		double newDst = GPS.angle(dst);
 		Map<Double, Map<Double, LocNot>> Max=nots;
+		
+		
 		List<Pair<Double, Map<Double, LocNot>>> in = Max.getRange(lat-newDst, lat+newDst);
+		
+		
+		
 		
 		if(!in.empty()) {
 			in.findFirst();
@@ -302,8 +289,7 @@ if(nots.empty()) {
 			test.findFirst();
 			while(!test.last()) {
 				if(test.retrieve().getText().contains(w)) {
-					System.out.println(test.retrieve().getText());
-					System.out.println(	delNot(nots,test.retrieve().getLat(), test.retrieve().getLng()));
+					delNot(nots,test.retrieve().getLat(), test.retrieve().getLng());
 }
 				
 				test.findNext();
@@ -311,9 +297,8 @@ if(nots.empty()) {
 			}
 
 			if(test.retrieve().getText().contains(w)) {
-				System.out.println(	delNot(nots,test.retrieve().getLat(), test.retrieve().getLng()));
 
-				//delNot(nots,test.retrieve().getLat(), test.retrieve().getLng());
+				delNot(nots,test.retrieve().getLat(), test.retrieve().getLng());
 
 
 			}

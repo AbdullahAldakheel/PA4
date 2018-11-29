@@ -1,6 +1,0 @@
-24.74203	46.65809	0	1	Buy milk 
-24.72328	46.63540	5	5	Submit HW female 
-24.75365	46.62900	0	1	Buy water 
-24.72294	46.61838	5	1	Submit HW male 
-24.75213	46.62443	1	1	Buy notebook 
-24.72062	46.62248	1	1	Ask for room reparations 
