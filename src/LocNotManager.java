@@ -170,6 +170,8 @@ if(nots.empty()) {
 					boolean second = nots.retrieve().find(lng);
 			if(second) {
 				nots.retrieve().clear();
+				System.out.println("done");
+				nots.retrieve().remove(lng);
 				return true;
 		}
 	}
@@ -300,17 +302,25 @@ if(nots.empty()) {
 			test.findFirst();
 			while(!test.last()) {
 				if(test.retrieve().getText().contains(w)) {
-					System.out.println(delNot(nots, test.retrieve().getLat(), test.retrieve().getLng()));
-					
-			
-				}
-					test.findNext();
+					System.out.println(test.retrieve().getText());
+					System.out.println(	delNot(nots,test.retrieve().getLat(), test.retrieve().getLng()));
+}
+				
+				test.findNext();
+		
 			}
+
 			if(test.retrieve().getText().contains(w)) {
-				System.out.println(delNot(nots, test.retrieve().getLat(), test.retrieve().getLng()));
+				System.out.println(	delNot(nots,test.retrieve().getLat(), test.retrieve().getLng()));
+
+				//delNot(nots,test.retrieve().getLat(), test.retrieve().getLng());
+
+
 			}
 		} 
+	
 		
+
 	}
 
 	// Print a list of notifications in the same format used in file.

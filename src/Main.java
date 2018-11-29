@@ -13,10 +13,10 @@ public class Main {
 
 		// Add some notifications
 		LocNotManager.addNot(nots, new LocNot("Buy water", 24.75365, 46.62900, 0, 0));
-		//LocNotManager.addNot(nots, new LocNot("Submit PA male", 24.72294, 46.61978, 5, 0));
-		//LocNotManager.addNot(nots, new LocNot("Submit HW male", 24.72294, 46.61838, 5, 0));
-		//LocNotManager.addNot(nots, new LocNot("Submit PA female", 24.72328, 46.63640, 5, 4));
-		//LocNotManager.addNot(nots, new LocNot("Submit HW female", 24.72328, 46.63540, 5, 4));
+		LocNotManager.addNot(nots, new LocNot("Submit PA male", 24.72294, 46.61978, 5, 0));
+		LocNotManager.addNot(nots, new LocNot("Submit HW male", 24.72294, 46.61838, 5, 0));
+		LocNotManager.addNot(nots, new LocNot("Submit PA female", 24.72328, 46.63640, 5, 4));
+		LocNotManager.addNot(nots, new LocNot("Submit HW female", 24.72328, 46.63540, 5, 4));
 		LocNotManager.addNot(nots, new LocNot("Ask for room reparations", 24.72062, 46.62248, 1, 0));
 		LocNotManager.addNot(nots, new LocNot("Buy notebook", 24.75213, 46.62443, 1, 0));
 		LocNotManager.addNot(nots, new LocNot("Buy milk", 24.74203, 46.65809, 0, 0));
@@ -57,8 +57,13 @@ public class Main {
 //
 		LocNotManager.print(LocNotManager.index(nots)); // Print index
 //
-	    LocNotManager.delNots(nots, "Submit");
+		System.out.println("ddddd");
+	  LocNotManager.delNots(nots, "Submit");
+		
 //
+		//System.out.println(LocNotManager.delNot(nots, 24.71144, 46.62124));
+		System.out.println("ddddd");
+
 		LocNotManager.print(LocNotManager.getAllNots(nots)); // Print all notifications (no "Submit" here)
 //
 		//System.out.println("rgrgrg");

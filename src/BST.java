@@ -17,7 +17,11 @@ public class BST <K extends Comparable<K>, T> implements Map<K,T> {
 
 	@Override
 	public void clear() {
-		 current = null;
+		 //current.data = null;
+		K tmp =current.key;
+		current.data = null;
+		 find(tmp);
+		
 	}
 
 	@Override
@@ -101,12 +105,12 @@ BSTNode<T,K> p, q = current;
 		}
 	}
 
-	private boolean removed = false;
+	private boolean removed ;
 	public boolean remove(K key) {
 		removed = false;
 		BSTNode<T,K> p;
 		p = remove_aux(key, root, removed);
-		current = root = p;
+		//current = p;
 		
 	return removed;	
 	}
@@ -173,7 +177,9 @@ BSTNode<T,K> p, q = current;
 
 	  	        printInorder(p.left, tmp); 
 	  	        Pair tmp1 = new Pair(p.key,p.data);
-	  	        tmp.insert(tmp1);
+	  	       if(current.data!=null) {
+	  	    	 tmp.insert(tmp1);
+	  	       }
 	  	        printInorder(p.right, tmp); 
 
 	    } 
