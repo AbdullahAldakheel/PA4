@@ -36,7 +36,7 @@ public class Main {
 
 		LocNotManager.print(LocNotManager.getActiveNotsAt(nots, 24.74203 + GPS.angle(50), 46.65809 - GPS.angle(50), 110)); // This should print the task: Buy milk
 
-		LocNotManager.print(LocNotManager.getActiveNotsAt(nots, 24.72328 + GPS.angle(50), 46.63640, 99)); // This should print the task: Submit PA female
+		LocNotManager.print(LocNotManager.getActiveNotsAt(nots, 24.72328 + GPS.angle(50), 46.63640, 200)); // This should print the task: Submit PA female
 
 		LocNotManager.perform(nots, 24.72328 + GPS.angle(300), 46.63640, 100);
 

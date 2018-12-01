@@ -165,7 +165,7 @@ if(nots.empty()) {
 	// Return the list of notifications within a square of side dst (in meters) centered at the position (lat, lng) (it does not matter if the notification is active or not). Do not call Map.getAll().
 	public static List<LocNot> getNotsAt(Map<Double, Map<Double, LocNot>> nots, double lat, double lng, double dst) {
 		List<LocNot> notfg = new LinkedList<LocNot>();
-		double newDst = GPS.angle(dst);
+		double newDst = GPS.angle(dst/2);
 		Map<Double, Map<Double, LocNot>> Max=nots;
 		
 		
