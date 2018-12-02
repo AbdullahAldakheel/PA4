@@ -168,6 +168,7 @@ if(nots.empty()) {
 				
 				
 				if(count>1) {
+					nots.retrieve().find(lng);
 					return nots.retrieve().remove(lng);
 				}
 				return nots.remove(lat);
