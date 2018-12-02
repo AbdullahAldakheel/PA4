@@ -37,6 +37,8 @@ public class LocNotManager {
     			
     				
 					Mini.insert(Double.parseDouble(words[1]), add);
+					
+					
 			    	
 			    boolean t =Max.insert(Double.parseDouble(words[0]), Mini);
 					if(!t) {
@@ -44,6 +46,9 @@ public class LocNotManager {
 						Max.retrieve().insert((Double.parseDouble(words[1])), add);	
 					}					
 		    }
+		    
+		    
+		    
     
 		}catch(Exception e){
 			
@@ -153,7 +158,21 @@ if(nots.empty()) {
 				if(first) { 
 					boolean second = nots.retrieve().find(lng);
 			if(second) {
+				List<Pair<Double, LocNot>> Tmp = nots.retrieve().getAll();
+				Tmp.findFirst();
+				int count=1;
+				while(!Tmp.last()) {
+					Tmp.findNext();
+					count++;
+				}
+				
+				
+				if(count>1) {
+					return nots.retrieve().remove(lng);
+				}
 				return nots.remove(lat);
+
+			
 				
 		}
 	}

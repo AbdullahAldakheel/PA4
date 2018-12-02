@@ -2,48 +2,65 @@
 public class test {
 
 	public static void main(String[] args) {
-		BST<Integer,Integer> p=new BST<Integer,Integer>();
-		p.insert(8, 8);
+		LocNotManager D = new LocNotManager();
+		Map<Double, Map<Double,LocNot>> A = D.load("input.txt");
+		
+		LocNot loc = new LocNot("Hi",100,1,1,1);
 
-		p.insert(5, 5);
-
-		p.insert(0, 0);
-
-		p.insert(1, 1);
-
-		p.insert(2, 2);
-
-		p.insert(3, 3);
-
-		p.insert(4, 4);
-
-		p.insert(6, 6);
-
-		p.insert(7, 7);
-
-		p.insert(12, 12);
-
-		p.insert(9, 9);
-
-		p.insert(10, 10);
-
-		p.insert(11, 11);
-
-		p.insert(13, 13);
-
-		p.insert(14, 14);
-		//p.find(0);
-		List<Pair<Integer, Integer>>  T = p.getRange(-1400, 10000);
-		T.findFirst();
-		while(!T.last()) { 
-			System.out.println(T.retrieve().second);
-
-		 	T.findNext();
-		}
+		
+		//D.save("Test1.txt", A);
+		A = D.load("Test1.txt");
+	
+		
+		boolean f;
+		//f=D.delNot(A, 24.72294, 46.61978);
+		f=D.addNot(A, loc);
+		D.print(D.getAllNots(A));
+		//System.out.println(loc.toString());
+		//System.out.println(f);
+		
+//		BST<Integer,Integer> p=new BST<Integer,Integer>();
+//		p.insert(8, 8);
+//
+//		p.insert(5, 5);
+//
+//		p.insert(0, 0);
+//
+//		p.insert(1, 1);
+//
+//		p.insert(2, 2);
+//
+//		p.insert(3, 3);
+//
+//		p.insert(4, 4);
+//
+//		p.insert(6, 6);
+//
+//		p.insert(7, 7);
+//
+//		p.insert(12, 12);
+//
+//		p.insert(9, 9);
+//
+//		p.insert(10, 10);
+//
+//		p.insert(11, 11);
+//
+//		p.insert(13, 13);
+//
+//		p.insert(14, 14);
+//		//p.find(0);
+//		List<Pair<Integer, Integer>>  T = p.getRange(-1400, 10000);
+//		T.findFirst();
+//		while(!T.last()) { 
+//			System.out.println(T.retrieve().second);
+//
+//		 	T.findNext();
+//		}
 		//T.findNext();
 		//System.out.println(T.retrieve().second);
 
-		System.out.println(p.nbKeyComp(10));
+		//System.out.println(p.nbKeyComp(10));
 		//T.findNext();
 		
 		//p.print();
@@ -94,7 +111,7 @@ public class test {
 //
 //		System.out.println(C.retrieve().second.getLat()+""+C.retrieve().second.getLng()+""+C.retrieve().second.getMaxNbRepeats()+""+C.retrieve().second.getNbRepeats()+" "+C.retrieve().second.getText());
 //
-		Map<Double, Map<Double, LocNot>> load = LocNotManager.load("input.txt");
+		//Map<Double, Map<Double, LocNot>> load = LocNotManager.load("input.txt");
 			
 		
 		//LocNotManager.save("tee.txt", load);

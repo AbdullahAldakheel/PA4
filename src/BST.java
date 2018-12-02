@@ -1,4 +1,24 @@
 import java.util.*;
+class BSTNode <T,K> {
+	public K key;
+	public T data;
+	public BSTNode<T,K> left, right;
+	
+	/** Creates a new instance of BSTNode */
+	public BSTNode(K k, T val) {
+		key = k;
+		data = val;
+		left = right = null;
+	}
+	
+	public BSTNode(K k, T val, BSTNode<T, K> l, BSTNode<T, K> r) {
+		key = k;
+		data = val;
+		left = l;
+		right = r;
+	}
+}
+
 public class BST <K extends Comparable<K>, T> implements Map<K,T> {
 	BSTNode<T,K> root, current;
 	
@@ -58,7 +78,6 @@ public class BST <K extends Comparable<K>, T> implements Map<K,T> {
 	}
 
 
-
 	int nbKey = 0;
 	
 	public int nbKeyComp(K key) {
@@ -104,8 +123,6 @@ BSTNode<T,K> p, q = current;
 		}
 	}
 
-	
-	
 	
 	private boolean removed ;
 	public boolean remove(K key) {
@@ -162,15 +179,7 @@ BSTNode<T,K> p, q = current;
 		return p;
 	}
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	
 	@Override
 	public List<Pair<K, T>> getAll() {
@@ -224,19 +233,15 @@ BSTNode<T,K> p, q = current;
 	  	      printInorderForRange(p.right, tmp, k1, k2); 
 	    }
 
+	  
 	  private int count=0;
-	  private int countRest=0;
 	  public int nbKeyComp(K k1, K k2) {
 	       //BSTNode<T,K> p = root; 
 		  count=0;
-		   countRest=0;
+		   int countRest=nbKeyComp(k1);
 			BSTNode<T,K> p = root;
 	       nbKeyCompRec(p, k1, k2);
-	       
-	       if(k1.compareTo(k2)>0) {
-	    	   return nbKeyComp(k1)+count;
-	    	  
-	       }
+
 		return count;
 	}
 	  private void nbKeyCompRec(BSTNode<T,K> p, K k1,K k2) { 
@@ -245,23 +250,12 @@ BSTNode<T,K> p, q = current;
 
 	        }
 	        nbKeyCompRec(p.left, k1, k2);
-	  	        if(p.key.compareTo(k1) >= 0 && p.key.compareTo(k2) <= 0) {
+	  	        if(p.key.compareTo(k1) >= 0 || p.key.compareTo(k2) < 0) {
 	  	        	count+=1;
 	  	        }
 	  	      nbKeyCompRec(p.right, k1, k2); 
 	    }
-	  public void print() { 
-		  print1(root);
-	    }
-	  public void print1(BSTNode<T, K> t) { 
-	        if (t == null) {
-	            return ; 
-
-	        }
-
-	        print1(t.left); 
-System.out.println(t.data);
-	print1(t.right); 
-	    }
-
+	
 }
+
+	  
