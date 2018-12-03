@@ -1,6 +1,7 @@
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -8,52 +9,47 @@ import java.io.FileWriter;
 public class LocNotManager {
 	// Load notifications from file. Assume format is correct. The notifications are
 	// indexed by latitude then by longitude.
-	public static Map<Double, Map<Double, LocNot>> load(String fileName) {
+	public static Map<Double, Map<Double, LocNot>> load(String fileName) throws Exception,FileNotFoundException{
 		boolean check = false;
-		//BST<Double,LocNot> Mini=new BST<Double,LocNot>();
-		Map<Double, Map<Double, LocNot>> Max=new BST<Double, Map<Double, LocNot>>();
-		Map<Double,LocNot> Mini=new BST<Double,LocNot>();
-    	double zg=-345435435;
-    	double zg2=zg;
+		// BST<Double,LocNot> Mini=new BST<Double,LocNot>();
+		Map<Double, Map<Double, LocNot>> Max = new BST<Double, Map<Double, LocNot>>();
+		Map<Double, LocNot> Mini = new BST<Double, LocNot>();
+		double zg = -345435435;
+		double zg2 = zg;
 		try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
-		    String line=null;
-		    while ((line = br.readLine()) != null) {
-		    	String[] words = line.split("\\s+"); // splits by whitespace
-		    	String tmp= "";
-		    	for(int i=0 ; i<words.length ; i++) {
-		    		if(i==4) {	
-		    			for(int j=4 ; i<words.length ; i++) {
-		    				 tmp += words[i];
-		    				 tmp += " ";
-		    			}
-		    			break;
-		    		}
-		    	}
-		    
-					
-		    	LocNot add = new LocNot(tmp, Double.parseDouble(words[0]), Double.parseDouble(words[1]), Integer.parseInt(words[2]), Integer.parseInt(words[3]));
-		    	 Mini=new BST<Double,LocNot>();
-					
-    			
-    				
-					Mini.insert(Double.parseDouble(words[1]), add);
-					
-					
-			    	
-			    boolean t =Max.insert(Double.parseDouble(words[0]), Mini);
-					if(!t) {
-						Max.find(Double.parseDouble(words[0]));
-						Max.retrieve().insert((Double.parseDouble(words[1])), add);	
-					}					
-		    }
-		    
-		    
-		    
-    
-		}catch(Exception e){
-			
+			String line = null;
+			while ((line = br.readLine()) != null) {
+
+				String[] words = line.split("\\s+"); // splits by whitespace
+				String tmp = "";
+
+				for (int i = 0; i < words.length; i++) {
+					if (i == 4) {
+						for (int j = 4; i < words.length; i++) {
+							tmp += words[i];
+							tmp += " ";
+						}
+						break;
+					}
+				}
+
+				LocNot add = new LocNot(tmp, Double.parseDouble(words[0]), Double.parseDouble(words[1]),
+						Integer.parseInt(words[2]), Integer.parseInt(words[3]));
+				Mini = new BST<Double, LocNot>();
+
+				Mini.insert(Double.parseDouble(words[1]), add);
+
+				boolean t = Max.insert(Double.parseDouble(words[0]), Mini);
+				if (!t) {
+					Max.find(Double.parseDouble(words[0]));
+					Max.retrieve().insert((Double.parseDouble(words[1])), add);
+				}
+			}
+
+		} catch (Exception e) {
+			return Max;
 		}
-		
+
 		return Max;
 	}
 
@@ -89,7 +85,7 @@ public class LocNotManager {
 	public static List<LocNot> getAllNots(Map<Double, Map<Double, LocNot>> nots) {
 		List<LocNot> notf = new LinkedList<LocNot>();
 if(nots.empty()) {
-	return null;
+	return notf;
 }
 		//Map<Double, Map<Double, LocNot>> Max=nots;
 		List<Pair<Double, Map<Double, LocNot>>> in = nots.getAll();
@@ -160,7 +156,7 @@ if(nots.empty()) {
 			if(second) {
 				List<Pair<Double, LocNot>> Tmp = nots.retrieve().getAll();
 				Tmp.findFirst();
-				int count=1;
+				int count=1; 
 				while(!Tmp.last()) {
 					Tmp.findNext();
 					count++;
@@ -176,7 +172,7 @@ if(nots.empty()) {
 			
 				
 		}
-	}
+	} 
 		return false;
 
 	}
@@ -184,6 +180,7 @@ if(nots.empty()) {
 
 	// Return the list of notifications within a square of side dst (in meters) centered at the position (lat, lng) (it does not matter if the notification is active or not). Do not call Map.getAll().
 	public static List<LocNot> getNotsAt(Map<Double, Map<Double, LocNot>> nots, double lat, double lng, double dst) {
+		
 		List<LocNot> notfg = new LinkedList<LocNot>();
 		double newDst = GPS.angle(dst/2);
 		Map<Double, Map<Double, LocNot>> Max=nots;
@@ -191,7 +188,9 @@ if(nots.empty()) {
 		
 		List<Pair<Double, Map<Double, LocNot>>> in = Max.getRange(lat-newDst, lat+newDst);
 		
-		
+		if(nots.empty()) {
+			return notfg;
+		}
 		
 		
 		if(!in.empty()) {
@@ -275,25 +274,83 @@ if(nots.empty()) {
 	// Return a map that maps every word to the list of notifications in which it appears. The list must have no duplicates.
 	public static Map<String, List<LocNot>> index(Map<Double, Map<Double, LocNot>> nots) {
 		List<LocNot> newL = getAllNots(nots);
-	
+		//LinkedList<LocNot> tmp = new LinkedList<LocNot>();
 		Map<String, List<LocNot>> Max=new BST<String, List<LocNot>>();
+		if(nots.empty()) {
+			
+			return Max;
+		}
+		
 		if(!newL.empty()) {
 			newL.findFirst();
 			while(!newL.last()) {
 				String tmp = newL.retrieve().getText();
-				LinkedList<LocNot> tmp1 = new LinkedList<LocNot>();
-				tmp1.insert(newL.retrieve());
-				Max.insert(tmp, tmp1);
+				String[] words = tmp.split("\\s+"); 
+				
+				int t = words.length;
+				for(int i = 0 ; i < t ; i++) {
+					LinkedList<LocNot> tmp1 = new LinkedList<LocNot>();
+					tmp1.insert(newL.retrieve());
+					boolean go = Max.insert(words[i], tmp1);
+					if(!go) {
+						Max.find(words[i]);
+					Max.retrieve().insert(newL.retrieve());			
+					}
+					
+				}
+				
+				
 				newL.findNext();
 			}
 			String tmp = newL.retrieve().getText();
-			LinkedList<LocNot> tmp1 = new LinkedList<LocNot>();
-			tmp1.insert(newL.retrieve());
-			Max.insert(tmp, tmp1);
+			String[] words = tmp.split("\\s+"); 
+			
+			int t = words.length;
+			for(int i = 0 ; i < t ; i++) {
+				LinkedList<LocNot> tmp1 = new LinkedList<LocNot>();
+				tmp1.insert(newL.retrieve());
+				boolean go = Max.insert(words[i], tmp1);
+				if(!go) {
+					Max.find(words[i]);
+				Max.retrieve().insert(newL.retrieve());			
+				}
+				
+			}
+			
 			newL.findNext();
 			
 		}
 	
+		
+
+//		if(!newL.empty()) {
+//			newL.findFirst();
+//			
+//			String A = newL.retrieve().getText();
+//			String[] words = A.split("\\s+"); 
+//			System.out.println(words[0]);
+//			
+//				while(!newL.last()) {
+//
+//					tmp.insert(newL.retrieve());
+//					for(int i=0 ; i<A.length() ; i++) {
+//						
+//						
+//						boolean Nope = Max.insert(words[i], tmp);
+//						if(!Nope) {
+//							Max.find(words[i]);
+//							Max.retrieve().insert(newL.retrieve());
+//						}
+//						tmp = new LinkedList<LocNot>();
+//					}
+//					
+//					
+//					
+//					newL.findNext();
+//				} 
+//			
+//		}
+		
 		return Max;
 	
 	}
@@ -301,30 +358,27 @@ if(nots.empty()) {
 	// Delete all notifications containing the word w.
 	public static void delNots(Map<Double, Map<Double, LocNot>> nots, String w) {
 
-if(nots.empty()) {
-	return;
-}
+		if (nots.empty()) {
+			return;
+		}
 		List<LocNot> test = getAllNots(nots);
-		if(!test.empty()) {
+		if (!test.empty()) {
 			test.findFirst();
-			while(!test.last()) {
-				if(test.retrieve().getText().contains(w)) {
-					delNot(nots,test.retrieve().getLat(), test.retrieve().getLng());
-}
-				
+			while (!test.last()) {
+				if (test.retrieve().getText().contains(w)) {
+					delNot(nots, test.retrieve().getLat(), test.retrieve().getLng());
+				}
+
 				test.findNext();
-		
-			}
-
-			if(test.retrieve().getText().contains(w)) {
-
-				delNot(nots,test.retrieve().getLat(), test.retrieve().getLng());
-
 
 			}
-		} 
-	
-		
+
+			if (test.retrieve().getText().contains(w)) {
+
+				delNot(nots, test.retrieve().getLat(), test.retrieve().getLng());
+			}
+			test.findNext();
+		}
 
 	}
 

@@ -1,3 +1,5 @@
+import java.io.FileNotFoundException;
+
 // Carrefour Riyadh Park: 24.75365, 46.62900
 // KSU-CCIS (male): 24.72294, 46.61978
 // KSU-CCIS (female): 24.72328, 46.63640
@@ -8,7 +10,7 @@
 
 public class Main {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws FileNotFoundException, Exception {
 		Map<Double, Map<Double, LocNot>> nots = new BST<Double, Map<Double, LocNot>>();
 
 		// Add some notifications
@@ -28,12 +30,12 @@ public class Main {
 		 //Map<Double, Map<Double, LocNot>> nots = LocNotManager.load("Test1.txt"); //
 		// Reading from file
 
-		LocNotManager.save("output.txt", nots); // Write to file
+		//LocNotManager.save("output.txt", nots); // Write to file
 
 		// Some queries
 		LocNotManager.print(LocNotManager.getAllNots(nots)); // Print all notifications
 
-		LocNotManager.print(LocNotManager.getActiveNotsAt(nots, 24.72328, 46.63640, 100000)); // This should print all tasks
+		LocNotManager.print(LocNotManager.getActiveNotsAt(nots, 24.72328, 46.63640, 1000)); // This should print all tasks
 
 		LocNotManager.print(LocNotManager.getActiveNotsAt(nots, 24.72328, 46.63640, 1000)); // This should print the task: Submit PA female and Submit HW female
 
@@ -50,15 +52,16 @@ public class Main {
 		LocNotManager.perform(nots, 24.72062, 46.62248, 100); // This performs the task: Ask for room reparations
 
 		LocNotManager.print(LocNotManager.getActiveNotsAt(nots, 24.72062, 46.62248, 100)); // This should be empty (this task can only be repeated once)
-
+  
 		LocNotManager.print(LocNotManager.index(nots)); // Print index
-
-		LocNotManager.delNots(nots, "Submit");
-
+		//System.out.println(LocNotManager.delNot(nots, 24.75365,46.62900));
+		LocNotManager.delNots(nots, "Submit"); 
+ 
 		LocNotManager.print(LocNotManager.getAllNots(nots)); // Print all notifications (no "Submit" here)
-
-		System.out.println("nbKeyComp: " + nots.nbKeyComp(24.71144)); // Prints: 4
-
+		
+		
+		System.out.println("nbKeyComp: " + nots.nbKeyComp(24.71144)); // Prints: 4 
+ 
 		System.out.println("nbKeyComp (range): " + nots.nbKeyComp(24.71144, 24.75365)); // Prints: 5
 
 		System.out.println("nbKeyComp (range): " + nots.nbKeyComp(24.75365, 24.71144)); // Prints: 1

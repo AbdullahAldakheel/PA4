@@ -81,20 +81,50 @@ public class BST <K extends Comparable<K>, T> implements Map<K,T> {
 	int nbKey = 0;
 	
 	public int nbKeyComp(K key) {
-		nbKey=0;
+		 nbKey=0;
 			BSTNode<T,K> p = root;
 	       nbKeyCompRec(p, key);
+//		BSTNode<T,K> p = root,q = root;
+//		
+//		if(empty())
+//			return 0;
+//		 
+//		while(p != null) {
+//			nbKey++;
+//			q = p;
+//			if(p.key.compareTo(key) == 0 ) {
+//				//nbKey++;
+//				current = p;
+//				return nbKey;
+//			}
+//			else if(key.compareTo(p.key) < 0 ) {
+//				//nbKey++;
+//				p = p.left;
+//			}else {
+//				p = p.right;
+//				//nbKey++;
+//
+//			}
+//				
+//			
+//
+//		}
+//		
+//		current = q;
 		return nbKey;
 	}
 	  private void nbKeyCompRec(BSTNode<T,K> p, K key) { 
 	        if (p == null) {
 	            return; 
 	        }
+	    	
+	    	
+	        if(p.key.compareTo(key) >= 0 ) 
 	        nbKeyCompRec(p.left, key);
-	        if(p.key.compareTo(key) > 0 ) {
-	        		  	   	nbKey+=1;
-	        }
-
+	       
+	        nbKey+=1;	  	   
+	         
+	        if(p.key.compareTo(key) < 0 ) 
 	  	    nbKeyCompRec(p.right, key); 
 	    }
 
@@ -130,7 +160,7 @@ BSTNode<T,K> p, q = current;
 		BSTNode<T,K> p;
 		p = remove_aux(key, root, removed);
 		if(!empty()) {
-			current = root;
+			current = root = p;
 
 		}else {
 			current = null;
@@ -182,11 +212,12 @@ BSTNode<T,K> p, q = current;
 
 	
 	@Override
-	public List<Pair<K, T>> getAll() {
+	public List<Pair<K, T>> getAll() { 
 		LinkedList<Pair<K, T>> tmp = new LinkedList<Pair<K, T>>();
-		current = root;
 	       if (root == null) 
 	            return null; 
+		current = root;
+
 	       BSTNode<T, K> p = root;
 	       printInorder(p,tmp );
 		
@@ -244,18 +275,38 @@ BSTNode<T,K> p, q = current;
 
 		return count;
 	}
-	  private void nbKeyCompRec(BSTNode<T,K> p, K k1,K k2) { 
+	  
+	  private void nbKeyCompRec(BSTNode<T,K> p, K k1,K k2) {  
+
 	        if (p == null) {
 	            return; 
-
 	        }
+	        if(p.key.compareTo(k1) >= 0)
 	        nbKeyCompRec(p.left, k1, k2);
 	  	        if(p.key.compareTo(k1) >= 0 || p.key.compareTo(k2) < 0) {
 	  	        	count+=1;
 	  	        }
+	  	        if( p.key.compareTo(k2) < 0)
 	  	      nbKeyCompRec(p.right, k1, k2); 
 	    }
 	
+
+	  
+	  
+	  public void pqw() {
+		  print(root); 
+	  }
+
+public void print(BSTNode<T,K> p){
+    if (p == null) {
+        return ; 
+
+    }
+      print(p.left); 
+      System.out.println(p.data);
+      print(p.right); 
+      
+}
 }
 
 	  

@@ -3,7 +3,7 @@ public class test {
 
 	public static void main(String[] args) {
 		LocNotManager D = new LocNotManager();
-		Map<Double, Map<Double,LocNot>> A = D.load("input.txt");
+		//Map<Double, Map<Double,LocNot>> A = D.load("input.txt");
 		
 		LocNot loc = new LocNot("Hi",100,1,1,1);
 
@@ -33,9 +33,10 @@ public class test {
 		p.insert(55, 55);
 
 		p.insert(56, 56);
-
+		p.pqw();
+		System.out.println(p.nbKeyComp(56));
 	
-		System.out.println(p.nbKeyComp(58, 53));
+		//System.out.println(p.nbKeyComp(58, 53));
 //
 //		p.insert(14, 14);
 //		//p.find(0);
