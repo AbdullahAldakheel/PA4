@@ -11,8 +11,8 @@ import java.io.FileNotFoundException;
 public class Main {
 
 	public static void main(String[] args) throws FileNotFoundException, Exception {
-		Map<Double, Map<Double, LocNot>> nots = new BST<Double, Map<Double, LocNot>>();
-
+	//
+		Map<Double, Map<Double, LocNot>> nots =new  BST<Double, Map<Double, LocNot>>();
 		// Add some notifications
 		LocNotManager.addNot(nots, new LocNot("Buy water", 24.75365, 46.62900, 0, 0));
 		LocNotManager.addNot(nots, new LocNot("Submit PA male", 24.72294, 46.61978, 5, 0));
@@ -27,7 +27,7 @@ public class Main {
 		
 		//System.out.println(LocNotManager.delNot(nots, 24.72328, 46.63540));
 		
-		 //Map<Double, Map<Double, LocNot>> nots = LocNotManager.load("Test1.txt"); //
+		 //Map<Double, Map<Double, LocNot>> nots = LocNotManager.load("input.txt"); //
 		// Reading from file
 
 		//LocNotManager.save("output.txt", nots); // Write to file
@@ -60,7 +60,7 @@ public class Main {
 		LocNotManager.print(LocNotManager.getAllNots(nots)); // Print all notifications (no "Submit" here)
 		
 		
-		System.out.println("nbKeyComp: " + nots.nbKeyComp(24.71144)); // Prints: 4 
+		System.out.println("nbKeyComp: " + nots.nbKeyComp(0.0)); // Prints: 4 
  
 		System.out.println("nbKeyComp (range): " + nots.nbKeyComp(24.71144, 24.75365)); // Prints: 5
 

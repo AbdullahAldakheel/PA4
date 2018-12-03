@@ -1,4 +1,4 @@
-24.71144	46.62124	1	0	Make doctor appoinhthttment
+24.71144	46.62124	1	0	Make doctor appoinhthtment
 24.72062	46.62248	1	0	Ask for room reparations
 24.72294	46.61838	5	0	Submit HW male
 24.72294	46.61978	5	0	Submit PA male

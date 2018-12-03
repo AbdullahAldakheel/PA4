@@ -215,7 +215,7 @@ BSTNode<T,K> p, q = current;
 	public List<Pair<K, T>> getAll() { 
 		LinkedList<Pair<K, T>> tmp = new LinkedList<Pair<K, T>>();
 	       if (root == null) 
-	            return null; 
+	            return tmp; 
 		current = root;
 
 	       BSTNode<T, K> p = root;
@@ -244,7 +244,7 @@ BSTNode<T,K> p, q = current;
 	public List<Pair<K, T>> getRange(K k1, K k2) {
 		LinkedList<Pair<K, T>> tmp = new LinkedList<Pair<K, T>>();
 		if(root==null) {
-			return null;
+			return tmp;
 		}
 	       BSTNode<T,K> p = root;
 		printInorderForRange(p, tmp, k1, k2);
@@ -267,11 +267,10 @@ BSTNode<T,K> p, q = current;
 	  
 	  private int count=0;
 	  public int nbKeyComp(K k1, K k2) {
-	       //BSTNode<T,K> p = root; 
 		  count=0;
-		   int countRest=nbKeyComp(k1);
 			BSTNode<T,K> p = root;
 	       nbKeyCompRec(p, k1, k2);
+
 
 		return count;
 	}
@@ -281,9 +280,9 @@ BSTNode<T,K> p, q = current;
 	        if (p == null) {
 	            return; 
 	        }
-	        if(p.key.compareTo(k1) >= 0)
+	        if(p.key.compareTo(k1) > 0)
 	        nbKeyCompRec(p.left, k1, k2);
-	  	        if(p.key.compareTo(k1) >= 0 || p.key.compareTo(k2) < 0) {
+	  	        if(p.key.compareTo(k1) > 0 || p.key.compareTo(k2) < 0) {
 	  	        	count+=1;
 	  	        }
 	  	        if( p.key.compareTo(k2) < 0)
