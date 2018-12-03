@@ -201,9 +201,9 @@ BSTNode<T,K> p, q = current;
 
 	  	        printInorder(p.left, tmp); 
 	  	        Pair tmp1 = new Pair(p.key,p.data);
-	  	       if(current.data!=null) {
+	  	      
 	  	    	 tmp.insert(tmp1);
-	  	       }
+	  	       
 	  	        printInorder(p.right, tmp); 
 
 	    } 

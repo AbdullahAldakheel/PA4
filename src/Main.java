@@ -25,7 +25,7 @@ public class Main {
 		
 		//System.out.println(LocNotManager.delNot(nots, 24.72328, 46.63540));
 		
-		// Map<Double, Map<Double, LocNot>> nots = LocNotManager.load("input.txt"); //
+		 //Map<Double, Map<Double, LocNot>> nots = LocNotManager.load("Test1.txt"); //
 		// Reading from file
 
 		LocNotManager.save("output.txt", nots); // Write to file
