@@ -32,32 +32,61 @@ public class test {
 		//System.out.println(loc.toString());
 		//System.out.println(f);
 		
-		BST<Integer,Integer> p=new BST<Integer,Integer>();
-		p.insert(35, 35);
+		BST<Double,Double> p=new BST<Double,Double>();
+		p.insert(35.0, 35.0);
 
-		p.insert(14, 14);
+		p.insert(14.0, 14.0);
 
-		p.insert(5, 5);
+		p.insert(5.0, 5.0);
 
-		p.insert(33, 33);
+		p.insert(33.0, 33.0);
 
-		p.insert(53, 53);
+		p.insert(53.0, 53.0);
 
-		p.insert(50, 50);
+		p.insert(50.0, 50.0);
 
-		p.insert(44, 44);
+		p.insert(44.0, 44.0);
+  
+		p.insert(40.0, 40.0);
 
-		p.insert(40, 40);
+		p.insert(58.0, 58.0);
 
-		p.insert(58, 58);
+		p.insert(55.0, 55.0);
 
-		p.insert(55, 55);
-
-		p.insert(56, 56);
+		p.insert(56.0, 56.0);
 		p.pqw();
-		//System.out.println(p.nbKeyComp(56));
-	
-		System.out.println(p.nbKeyComp(58, 53));
+System.out.println("====");
+		System.out.println(p.nbKeyComp(35.0, 53.0));
+		System.out.println(p.nbKeyComp(33.0, 53.0));
+		System.out.println(p.nbKeyComp(1.0, 60.0));
+		System.out.println(p.nbKeyComp(58.0, 53.0));
+		System.out.println(p.nbKeyComp(53.0, 56.0));
+		System.out.println(p.nbKeyComp(50.0, 56.0));
+		System.out.println(p.nbKeyComp(50.0, 55.0));
+		System.out.println(p.nbKeyComp(40.0, 56.0));
+		System.out.println(p.nbKeyComp(5.0, 35.0));
+		System.out.println(p.nbKeyComp(50.0, 53.0));
+		System.out.println(p.nbKeyComp(50.0, 56.0));
+		System.out.println(p.nbKeyComp(5.0, 33.0));
+		System.out.println(p.nbKeyComp(40.0, 44.0));
+		System.out.println(p.nbKeyComp(0.0, 0.0));
+		System.out.println(p.nbKeyComp(-10.0, 0.0));
+		System.out.println(p.nbKeyComp(800.0, 53.0));
+		System.out.println(p.nbKeyComp(300.0, 800.0));
+		System.out.println(p.nbKeyComp(44.0, 40.0)); // 4
+		System.out.println(p.nbKeyComp(14.0, 5.0));//2
+		System.out.println(p.nbKeyComp(14.0, 33.0));
+		System.out.println(p.nbKeyComp(33.0, 14.0));
+		System.out.println(p.nbKeyComp(35.0, 14.0));
+		System.out.println(p.nbKeyComp(56.0, 53.0));
+
+
+
+
+
+
+
+
 //
 //		p.insert(14, 14);
 //		//p.find(0);
@@ -69,6 +98,17 @@ public class test {
 //		 	T.findNext();
 
 			
+		
+//	     if (p == null) {
+//	            return; 
+//	        }
+//	        if(p.key.compareTo(k1) >= 0)
+//	        nbKeyCompRec(p.left, k1, k2);
+//	  	        if(p.key.compareTo(k1) >= 0 || p.key.compareTo(k2) < 0) {
+//	  	        	count+=1;
+//	  	        }
+//	  	        if( p.key.compareTo(k2) < 0)
+//	  	      nbKeyCompRec(p.right, k1, k2); 
 	}
 
 }

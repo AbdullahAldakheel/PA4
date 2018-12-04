@@ -49,7 +49,7 @@ public class LocNot {
 	}
 
 	@Override
-	public String toString() {
+	public String toString() { 
 		DecimalFormat formatter = new DecimalFormat("#.00000"); // We want to display 5 decimals only
 		return formatter.format(lat) + "\t" + formatter.format(lng) + "\t" + maxNbRepeats + "\t" + nbRepeats + "\t" + text;
 	}

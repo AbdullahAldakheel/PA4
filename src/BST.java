@@ -83,35 +83,23 @@ public class BST <K extends Comparable<K>, T> implements Map<K,T> {
 	public int nbKeyComp(K key) {
 		 nbKey=0;
 			BSTNode<T,K> p = root;
-	       nbKeyCompRec(p, key);
-//		BSTNode<T,K> p = root,q = root;
-//		
-//		if(empty())
-//			return 0;
-//		 
-//		while(p != null) {
-//			nbKey++;
-//			q = p;
-//			if(p.key.compareTo(key) == 0 ) {
-//				//nbKey++;
-//				current = p;
-//				return nbKey;
-//			}
-//			else if(key.compareTo(p.key) < 0 ) {
-//				//nbKey++;
-//				p = p.left;
-//			}else {
-//				p = p.right;
-//				//nbKey++;
-//
-//			}
-//				
-//			
-//
-//		}
-//		
-//		current = q;
-		return nbKey;
+			
+			
+			while(p != null) {
+				
+				
+				if(p.key.compareTo(key) == 0 ) {
+					nbKey++;
+					break;
+				}
+				else if(key.compareTo(p.key) < 0 )
+					p = p.left;
+				else
+					p = p.right;
+				nbKey++;
+			}
+
+			return nbKey;
 	}
 	  private void nbKeyCompRec(BSTNode<T,K> p, K key) { 
 	        if (p == null) {
@@ -267,27 +255,27 @@ BSTNode<T,K> p, q = current;
 	  
 	  private int count=0;
 	  public int nbKeyComp(K k1, K k2) {
+	       //BSTNode<T,K> p = root; 
 		  count=0;
+		   int countRest=nbKeyComp(k1);
 			BSTNode<T,K> p = root;
 	       nbKeyCompRec(p, k1, k2);
-
 
 		return count;
 	}
 	  
 	  private void nbKeyCompRec(BSTNode<T,K> p, K k1,K k2) {  
 
-	        if (p == null) {
-	            return; 
-	        }
-	        if(p.key.compareTo(k1) > 0)
-	        nbKeyCompRec(p.left, k1, k2);
-	  	        if(p.key.compareTo(k1) > 0 || p.key.compareTo(k2) < 0) {
-	  	        	count+=1;
-	  	        }
-	  	        if( p.key.compareTo(k2) < 0)
-	  	      nbKeyCompRec(p.right, k1, k2); 
-	    }
+		if (p == null) {
+			return;
+		}
+		if (p.key.compareTo(k1) > 0)
+			nbKeyCompRec(p.left, k1, k2);
+		count += 1;
+
+		if (p.key.compareTo(k2) < 0)
+			nbKeyCompRec(p.right, k1, k2);
+	}
 	
 
 	  

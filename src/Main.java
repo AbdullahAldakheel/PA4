@@ -30,7 +30,7 @@ public class Main {
 		 //Map<Double, Map<Double, LocNot>> nots = LocNotManager.load("input.txt"); //
 		// Reading from file
 
-		//LocNotManager.save("output.txt", nots); // Write to file
+		LocNotManager.save("output.txt", nots); // Write to file
 
 		// Some queries
 		LocNotManager.print(LocNotManager.getAllNots(nots)); // Print all notifications
@@ -55,14 +55,14 @@ public class Main {
   
 		LocNotManager.print(LocNotManager.index(nots)); // Print index
 		//System.out.println(LocNotManager.delNot(nots, 24.75365,46.62900));
-		LocNotManager.delNots(nots, "Submit"); 
+		//LocNotManager.delNots(nots, "Submit"); 
  
 		LocNotManager.print(LocNotManager.getAllNots(nots)); // Print all notifications (no "Submit" here)
 		
 		
-		System.out.println("nbKeyComp: " + nots.nbKeyComp(0.0)); // Prints: 4 
- 
-		System.out.println("nbKeyComp (range): " + nots.nbKeyComp(24.71144, 24.75365)); // Prints: 5
+		System.out.println("nbKeyComp: " + nots.nbKeyComp(24.71144)); // Prints: 4
+
+		System.out.println("nbKeyComp (range): " + nots.nbKeyComp(24.72328, 24.74203)); // Prints: 5
 
 		System.out.println("nbKeyComp (range): " + nots.nbKeyComp(24.75365, 24.71144)); // Prints: 1
 
